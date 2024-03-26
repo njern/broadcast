@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue)](#license)
 [![Go Report Card](https://goreportcard.com/badge/github.com/njern/broadcast)](https://goreportcard.com/badge/github.com/njern/broadcast)
 [![Issues - broadcast](https://img.shields.io/github/issues/njern/broadcast)](https://github.com/njern/broadcast/issues)
-![GitHub Release](https://img.shields.io/github/v/release/njern/broadcast)
+![GitHub Release](https://img.shields.io/github/release/njern/broadcast)
 
 </div>
 
