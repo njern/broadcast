@@ -56,6 +56,17 @@ func (b *Broadcaster[T]) broadcast(v T) {
 	defer b.m.RUnlock()
 
 	for ch := range b.subscribers {
+		if b.timeout <= 0 {
+			select {
+			case ch <- v:
+			case <-b.closeCh:
+				// NOTE(njern): Handle an edge case where the
+				// Broadcaster is closed while broadcasting.
+				return
+			}
+			continue
+		}
+
 		select {
 		case ch <- v:
 		case <-time.After(b.timeout):

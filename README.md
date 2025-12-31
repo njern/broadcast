@@ -56,10 +56,10 @@ import (
 )
 ```
 
-Create a broadcaster with a specified buffer size and timeout for broadcast operations.
+Create a broadcaster with a specified buffer size and timeout for broadcast operations. Use a timeout of `0` to wait indefinitely for each subscriber.
 
 ```go
-b := broadcast.New[string](10, 0)
+b := broadcast.New[string](10, time.Second)
 ```
 
 Subscribers can now subscribe to the broadcaster, receiving a channel to listen for messages. The caller provides the channel buffer size as input (or `0` if you prefer an unbuffered channel).
@@ -98,12 +98,18 @@ b.Close()
 
 
 ### Custom Timeouts
-You can control how long the broadcaster waits for subscribers to receive messages. This is set when creating the  broadcaster and applies to all messages.
+You can control how long the broadcaster waits for subscribers to receive messages. This is set when creating the broadcaster and applies to all messages.
 
 ```go
 // This broadcaster will wait up to 10 seconds for subscribers to  
 // receive a message before continuing to the next subscriber.
 b := broadcast.New[int](10, 10*time.Second)
+```
+
+To disable timeouts and block until each subscriber receives a message (or the broadcaster is closed), pass `0`.
+
+```go
+b := broadcast.New[int](10, 0)
 ```
 
 ### Handling Closed Broadcasters
