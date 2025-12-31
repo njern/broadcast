@@ -142,7 +142,7 @@ func TestConcurrentSubscriptions(t *testing.T) {
 	var subs []chan int
 	var subsMu sync.Mutex
 
-	for i := 0; i < subCount; i++ {
+	for range subCount {
 		go func() {
 			subCh, err := b.Subscribe(10)
 			if err != nil {
