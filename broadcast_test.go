@@ -140,6 +140,7 @@ func TestConcurrentSubscriptions(t *testing.T) {
 	wg.Add(subCount)
 
 	var subs []chan int
+	var subsMu sync.Mutex
 
 	for i := 0; i < subCount; i++ {
 		go func() {
@@ -148,7 +149,9 @@ func TestConcurrentSubscriptions(t *testing.T) {
 				t.Errorf("Failed to subscribe: %v", err)
 			}
 
+			subsMu.Lock()
 			subs = append(subs, subCh)
+			subsMu.Unlock()
 
 			wg.Done()
 		}()
